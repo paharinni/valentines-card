@@ -1,0 +1,411 @@
+html {
+    height: 100%;
+}
+
+body {
+    background: #edafb8;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: auto auto auto 200px;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    align-content: space-between;
+    position: relative;
+}
+
+
+/* GLASS */
+.glass {
+    margin-left: 600px;
+    position: relative;
+    width: 40vmin;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    order: 2;
+}
+
+.glass svg {
+    position: relative;
+    z-index: 1;
+    display: block;
+    transform: translateZ(100vmin);
+}
+
+.glass .wrapper {
+    position: absolute;
+    left: 10.5%;
+    right: 10.5%;
+    top: 5%;
+    bottom: -15%;
+    transform: perspective(96vmin) rotateX(-30.8deg);
+}
+
+.glass .contents {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 0 25% 25% / 0 0 10% 10%;
+    overflow: hidden;
+}
+
+
+/* BEER */
+.glass .beer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    background-size: 100% 100%;
+    animation-name: fill;
+    background-color: #780000;
+
+    /* Had to use an image for the gradient because css linear gradients don't create a smooth enough ramp between stops for my liking. */
+}
+
+.glass .surface {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    transform: scale(0);
+    opacity: 1;
+    animation-name: surface;
+}
+
+.glass .surface::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-bottom: 15%;
+    margin-top: -5%;
+    border-radius: 50%;
+    background: #780000;
+    opacity: 0.35;
+}
+
+.glass .surface::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-bottom: 15%;
+    margin-top: -7.5%;
+    border-radius: 50%;
+    background: #780000;
+}
+
+@keyframes fill {
+    0% {
+        height: 0%;
+    }
+    100% {
+        height: 89%;
+    }
+}
+
+@keyframes surface {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    10%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* HEAD */
+.glass .head {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    padding-bottom: 0%;
+    opacity: 0;
+    animation-name: fill-head;
+    background: linear-gradient(to right, #780000 100%,rgba(235,235,235,1) 50%,rgba(178,178,178,1) 100%);
+}
+
+.glass .head::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 15%;
+    border-radius: 50%;
+    margin-bottom: -7.5%;
+    background: linear-gradient(to right, #780000 0%,#780000 50%,#780000 100%);
+}
+
+.glass .head::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding-bottom: 15%;
+    margin-top: -7.5%;
+    border-radius: 50%;
+    background: #780000;
+}
+
+@keyframes fill-head {
+    0% {
+        padding-bottom: 0%;
+        opacity: 0;
+    }
+    35% {
+        padding-bottom: 0%;
+        opacity: 0;
+    }
+    45% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        padding-bottom: 20.5%;
+    }
+}
+
+
+/* POUR */
+
+.pour {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    opacity: 0;
+    height: 200%;
+    transform: translateX(-50%);
+    animation-name: pour-position;
+    transition: 200ms;
+}
+
+.pour .stream {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, #780000 0%,#780000 20%,#780000 100%);
+    animation-name: pour-opacity;
+}
+
+.pour .stream::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 25%;
+    border-radius: 50%;
+    background: #780000;
+    transform: translateY(50%);
+}
+
+@keyframes pour-position {
+    0% {
+        bottom: 0;
+        margin-bottom: 0%;
+        height: 200%;
+    }
+    35% {
+        margin-bottom: 0%;
+    }
+    100% {
+        bottom: 89%;
+        margin-bottom: 20.5%;
+        height: 50%;
+    }
+}
+
+@keyframes pour-opacity {
+    0%,96% {
+        opacity: 1;
+        width: 100%;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+    }
+}
+
+
+/* INSTRUCTIONS */
+.instructions {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: #fff;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 3vmin;
+    opacity: 0.5;
+    text-transform: uppercase;
+    transform: translate(-50%,-50%);
+    animation-name: instructions;
+}
+
+@media (pointer: fine) {
+    .instructions::before {
+
+    }
+}
+
+@media (pointer: coarse) {
+    .instructions::before {
+        content: "Tap ";
+    }
+}
+
+@keyframes instructions {
+    0%, 15% {
+        opacity: 0.5;
+    }
+    20%, 100% {
+        opacity: 0;
+    }
+}
+
+
+/* DEFINE ANIMATION */
+
+.glass .beer,
+.glass .head,
+.glass .surface,
+.glass .pour,
+.glass .pour .stream,
+.instructions {
+    animation-timing-function: cubic-bezier(.2,0,.4,1);
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+
+/* ANIMATE FILL */
+@media (pointer: fine) {
+    .glass:active .beer,
+    .glass:active .head,
+    .glass:active .surface,
+    .glass:active .pour,
+    .glass:active .pour .stream,
+    .glass:active ~ .instructions {
+        animation-play-state: running;
+    }
+
+    .glass:active .pour {
+        width: 10%;
+        opacity: 1;
+    }
+}
+
+@media (pointer: coarse) {
+    .glass:hover .beer,
+    .glass:hover .head,
+    .glass:hover .surface,
+    .glass:hover .pour,
+    .glass:hover .pour .stream,
+    .glass:hover ~ .instructions {
+        animation-play-state: running;
+    }
+
+    .glass:hover .pour {
+        width: 10%;
+        opacity: 1;
+    }
+}
+
+ /* CSS */
+.label {
+    padding: 40px;
+    border: pink;
+    position: fixed;
+    font-family: 'Dancing Script', cursive;
+    left: 50%;
+    top: 70px;
+    color: red;
+    text-align: center;
+    font-size: 3vmin;
+    opacity: 0.5;
+    text-transform: uppercase;
+    transform: translate(-50%,-50%);
+    align-items: center;
+    background-image: linear-gradient(144deg,#eff7f6, #f7d6e0 50%,#f2b5d4);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.label:hover {
+    outline: 0;
+    background-image: linear-gradient(144deg,#fb6f92, #ffc2d1 50%,#FFFFFF);
+    color: #FFFFFF;
+}
+
+.label span {
+    background-color: rgb(5, 6, 45);
+    padding: 16px 24px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: 300ms;
+}
+
+.label:hover span {
+    background: none;
+}
+
+@media (min-width: 768px) {
+    .label {
+        font-size: 24px;
+        min-width: 196px;
+    }
+}
+
+.heart {
+    position: fixed;
+    font-size: 1.5rem;
+    top: -1vh;
+    transform: translateY(0);
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(0vh) translateX(-10vw);
+    }
+    to {
+        transform: translateY(105vh) translateX(10vw);
+    }
+}
